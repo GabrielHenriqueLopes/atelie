@@ -216,6 +216,7 @@ function alvoAgora(parada){
   const topo = window.scrollY + cabecalho.offsetHeight + folgaBalao + 8;
   const base = window.scrollY + window.innerHeight - gh - 10;
   let y = d.y;
+  if("fixo" in parada.ponto.dataset) return Object.assign(d, { modo: "pagina" });   // presa no lugar (ex.: moldura)
   if(y < topo) y = topo;
   if(y > base) y = base;
   return Object.assign(d, { y, modo: y === d.y ? "pagina" : "tela" });
