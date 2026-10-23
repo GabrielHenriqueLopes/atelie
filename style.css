@@ -152,6 +152,7 @@ body{overflow-x:clip}
   border:1px solid var(--rose);border-radius:22px;padding:12px 18px;box-shadow:0 10px 26px rgba(74,51,41,.14);
   opacity:0;transform:translateY(8px) scale(.94);transition:opacity .3s ease,transform .35s cubic-bezier(.3,1.5,.5,1)}
 .balao.mostra{opacity:1;transform:none}
+.balao.medindo{transform:none!important;transition:none!important}
 .balao::before{content:"";position:absolute;width:16px;height:16px;background:var(--card);border:1px solid var(--rose);border-top:0;border-right:0}
 .balao.b-dir{left:calc(100% + 14px);top:8%;transform-origin:0 50%}
 .balao.b-dir::before{left:-9px;top:22px;transform:rotate(45deg)}

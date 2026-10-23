@@ -202,9 +202,57 @@ function destino(parada){
 // aplica lado/balão do destino (sem mexer na posição)
 function vestir(d){
   graca.classList.toggle("virada", d.virada);
-  gBalao.classList.remove("b-cima", "b-dir", "b-esq"); gBalao.classList.add("b-" + d.balao);
-  gBalao.classList.toggle("b-alinha-dir", !!d.alinhaDir);
-  gBalao.style.setProperty("--balao-max", Math.max(150, Math.min(300, d.max)) + "px");
+  graca._pref = { lado: d.balao, alinhaDir: !!d.alinhaDir };   // lado preferido do balão nesta seção
+}
+
+/* ===== Balão que nunca cobre texto =====
+   Testa o balão em volta da Graça (em cima, à direita, à esquerda, em larguras menores)
+   e usa o primeiro lugar que não encosta em nenhum texto e cabe na tela.
+   Se não houver lugar livre, o balão fica escondido até a pessoa rolar a página. */
+const SELETOR_TEXTO = "main h1, main h2, main h3, main p, main blockquote, main .eyebrow, main .btn, main .tab, main .info, main .dots, main .note, main .actions, main .links";
+const MARGEM_TEXTO = 10;   // distância mínima (px) entre o balão e qualquer texto
+
+function textosNaTela(){
+  const h = window.innerHeight, lista = [];
+  document.querySelectorAll(SELETOR_TEXTO).forEach(el => {
+    const r = el.getBoundingClientRect();
+    if(r.width && r.height && r.bottom > -20 && r.top < h + 20) lista.push(r);
+  });
+  return lista;
+}
+function poeBalao(lado, alinhaDir, largura){
+  gBalao.classList.remove("b-cima", "b-dir", "b-esq"); gBalao.classList.add("b-" + lado);
+  gBalao.classList.toggle("b-alinha-dir", !!alinhaDir);
+  gBalao.style.setProperty("--balao-max", largura + "px");
+}
+function encaixarBalao(){
+  const pref = graca._pref || { lado: "cima", alinhaDir: false };
+  const opcoes = [[pref.lado, pref.alinhaDir], ["cima", false], ["cima", true], ["dir", false], ["esq", false]]
+    .filter((o, i, a) => a.findIndex(x => x[0] === o[0] && x[1] === o[1]) === i);
+  const textos = textosNaTela(), larguraTela = document.documentElement.clientWidth;
+  const topoLivre = cabecalho.getBoundingClientRect().bottom + 4;
+  gBalao.classList.add("medindo");
+  let achou = null;
+  busca: for(const largura of [300, 240, 190]){
+    for(const [lado, alinhaDir] of opcoes){
+      poeBalao(lado, alinhaDir, largura);
+      const r = gBalao.getBoundingClientRect();
+      if(r.left < 8 || r.right > larguraTela - 8 || r.top < topoLivre || r.bottom > window.innerHeight - 4) continue;
+      const bate = textos.some(t => r.left < t.right + MARGEM_TEXTO && r.right > t.left - MARGEM_TEXTO &&
+                                    r.top < t.bottom + MARGEM_TEXTO && r.bottom > t.top - MARGEM_TEXTO);
+      if(!bate){ achou = [lado, alinhaDir, largura]; break busca; }
+    }
+  }
+  if(achou) poeBalao(...achou);
+  gBalao.classList.remove("medindo");
+  return !!achou;
+}
+
+let falandoAgora = false;
+// mostra ou esconde o balão conforme haja espaço livre (chamado ao rolar)
+function revisarBalao(){
+  if(!falandoAgora) return;
+  gBalao.classList.toggle("mostra", encaixarBalao());
 }
 
 // Onde ela fica AGORA: no ponto da seção, mas sem nunca sair da tela.
@@ -237,6 +285,12 @@ function acompanhar(){
   const a = alvoAgora(paradaAtual);
   graca.classList.add("sem-transicao");
   vestir(a); aplicar(a.modo, a.x, a.y);
+  agendarRevisao();
+}
+let revisaoPendente = false;
+function agendarRevisao(){
+  if(revisaoPendente || !falandoAgora) return; revisaoPendente = true;
+  requestAnimationFrame(() => { revisaoPendente = false; revisarBalao(); });
 }
 
 // viagem com pulinhos até o lugar dela na seção; devolve a duração (ms)
@@ -269,12 +323,16 @@ function textoDaParada(parada){
 
 function falar(texto){
   if(!texto) return;
-  gBalao.classList.add("mostra"); graca.classList.add("falando");
+  gBalao.querySelector(".fala-reserva").textContent = texto;   // mede o balão já com o texto inteiro
+  falandoAgora = true;
+  gBalao.classList.toggle("mostra", encaixarBalao());
+  graca.classList.add("falando");
   digitar(gBalao, texto, () => graca.classList.remove("falando"));
 }
 
 function calar(){
   clearTimeout(gracaTimer); clearTimeout(gBalao._timer);
+  falandoAgora = false;
   gBalao.classList.remove("mostra", "digitando"); graca.classList.remove("falando");
   setTimeout(() => { if(!gBalao.classList.contains("mostra")) gBalao.querySelector(".fala-texto").textContent = ""; }, 300);
 }
