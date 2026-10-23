@@ -1,0 +1,4 @@
+Ateliê Toque de Graça - código-fonte
+Abra index.html no navegador (precisa de internet para carregar as fontes do Google Fonts).
+Edite WhatsApp, Instagram, categorias e produtos no início de script.js.
+Imagens: images/inicio/principal.jpg, images/atelie/processo.jpg, images/atelie/atelie.jpg, images/produtos/ e images/logo/.

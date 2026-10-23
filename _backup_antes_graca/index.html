@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ateliê Toque de Graça | Cartonagem e Papelaria Personalizada</title>
+<meta name="description" content="Conheça o Ateliê Toque de Graça: cartonagem, papelaria personalizada, presentes e peças artesanais feitas com carinho e atenção aos detalhes.">
+<meta name="keywords" content="Ateliê Toque de Graça, cartonagem artesanal, papelaria personalizada, cadernos artesanais, planners personalizados, presentes artesanais, lembrancinhas personalizadas">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Ateliê Toque de Graça | Cartonagem e Papelaria Personalizada">
+<meta property="og:description" content="Cartonagem, papelaria personalizada, presentes e peças artesanais feitas com carinho.">
+<!-- Para a imagem de compartilhamento, adicione: <meta property="og:image" content="URL_DA_IMAGEM"> -->
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="bar">
+    <a class="brand" href="#inicio" aria-label="Ateliê Toque de Graça – início">
+      <!-- Para usar o logotipo: coloque o arquivo em images/logo/logo.png e troque este bloco por <img src="images/logo/logo.png" alt="Ateliê Toque de Graça" height="44"> -->
+      <b>Ateliê Toque de Graça</b><i>Cartonagem e Personalizados</i>
+    </a>
+    <button class="burger" id="burger" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">☰</button>
+    <nav id="menu" aria-label="Principal">
+      <ul>
+        <li><a href="#inicio">Início</a></li>
+        <li><a href="#produtos">Produtos</a></li>
+        <li><a href="#personalizados">Personalizados</a></li>
+        <li><a href="#sobre">Sobre o Ateliê</a></li>
+        <li><a href="#contato">Contato</a></li>
+        <li><a class="nav-wa" data-wa="ola" href="#">WhatsApp</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="inicio" style="padding-bottom:72px">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">feito à mão, com carinho</span>
+      <h1>Peças feitas à mão, pensadas com carinho para fazer parte da sua história.</h1>
+      <p class="lead">No Ateliê Toque de Graça, transformamos papel, criatividade e dedicação em peças especiais, criadas para organizar, presentear e eternizar momentos.</p>
+      <div class="actions">
+        <a class="btn btn-solid" href="#produtos">Conheça nossos produtos</a>
+        <a class="btn btn-line" data-wa="encomenda" href="#">Faça sua encomenda</a>
+      </div>
+    </div>
+    <!-- Foto de abertura: images/inicio/principal.jpg -->
+    <div class="ph arch" data-img="images/inicio/principal.jpg" data-alt="Peças artesanais do Ateliê Toque de Graça" data-label="Fotografia dos produtos"></div>
+  </div>
+</section>
+
+<section id="produtos">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">nossa vitrine</span>
+      <h2>Produtos do ateliê</h2>
+      <p>Cada peça pode ser adaptada ao seu gosto. Toque em “Consultar” para falar com o ateliê pelo WhatsApp.</p>
+    </div>
+    <div class="tabs" id="tabs" role="group" aria-label="Filtrar por categoria"></div>
+    <div class="slider" id="slider" role="region" aria-roledescription="carrossel" aria-label="Produtos do ateliê">
+      <div class="stage">
+        <button class="arrow prev" id="prev" type="button" aria-label="Produto anterior">&#8249;</button>
+        <div class="viewport" id="viewport"><div class="track" id="track"></div></div>
+        <button class="arrow next" id="next" type="button" aria-label="Próximo produto">&#8250;</button>
+      </div>
+      <div class="dots" id="dots"></div>
+    </div>
+    <p class="note">Os itens marcados como “Exemplo” são apenas demonstrativos e serão substituídos pelos produtos reais do ateliê.</p>
+  </div>
+</section>
+
+<section class="craft" id="artesanal">
+  <div class="wrap split">
+    <!-- Foto do processo: images/atelie/processo.jpg -->
+    <div class="ph" data-img="images/atelie/processo.jpg" data-alt="Processo de criação no ateliê" data-label="Fotografia do processo, materiais ou acabamentos"></div>
+    <div>
+      <span class="eyebrow">o valor do artesanal</span>
+      <h2>Mais do que criar peças, colocamos um pouco de nós em cada detalhe.</h2>
+      <p>Por trás de cada corte, dobra, escolha de papel e acabamento, existem tempo, paciência, criatividade e dedicação.</p>
+      <p>Cada peça artesanal carrega o cuidado de quem a criou e a alegria de entregar algo único.</p>
+      <p>Valorizar o artesanal é reconhecer que nem tudo precisa ser feito às pressas. Algumas coisas merecem tempo, atenção e carinho. É justamente isso que queremos oferecer a você.</p>
+      <p>Cada criação é pensada com cuidado, respeitando os detalhes que tornam cada peça especial.</p>
+      <blockquote>Cada detalhe importa. Cada peça tem sua história. E cada criação é feita com carinho.</blockquote>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="sobre">
+  <div class="wrap split">
+    <div id="sobre-texto"><!-- Edite o texto abaixo para incluir a história real da marca -->
+      <span class="eyebrow">sobre o ateliê</span>
+      <h2>Um ateliê feito de ideias, cuidado e carinho.</h2>
+      <p>O Ateliê Toque de Graça nasceu do carinho pelos detalhes e da vontade de transformar materiais simples em peças especiais.</p>
+      <p>Cada criação é pensada com cuidado, desde a escolha dos materiais até o acabamento final. Nosso propósito é produzir peças que tenham significado, unindo beleza, funcionalidade e personalização.</p>
+      <p>Aqui, cada trabalho é feito com dedicação, respeitando o tempo e o cuidado que o artesanal merece.</p>
+      <p>Mais do que produzir objetos, queremos criar peças que acompanhem momentos, organizem a rotina e se transformem em presentes cheios de significado.</p>
+    </div>
+    <!-- Foto do ateliê: images/atelie/atelie.jpg -->
+    <div class="ph" data-img="images/atelie/atelie.jpg" data-alt="O ateliê e seus materiais" data-label="Fotografia do ateliê"></div>
+  </div>
+</section>
+
+<section class="custom" id="personalizados">
+  <div class="wrap">
+    <div class="box">
+      <span class="eyebrow">sob encomenda</span>
+      <h2>Sua ideia também pode ganhar forma.</h2>
+      <p>Tem uma ocasião especial, uma ideia de presente ou deseja uma peça personalizada?</p>
+      <p>Conte para nós o que você imaginou. Vamos conversar sobre os detalhes e encontrar uma forma de transformar sua ideia em uma criação especial.</p>
+      <a class="btn btn-solid" data-wa="personalizado" href="#">Quero personalizar meu pedido</a>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contato">
+  <div class="wrap" style="text-align:center;max-width:680px">
+    <span class="eyebrow">fale com a gente</span>
+    <h2>Contato</h2>
+    <p>Ficou com alguma dúvida? Será um prazer conversar com você sobre produtos, valores e encomendas.</p>
+    <p><strong style="font-weight:500">WhatsApp: (11) 99713-0075</strong></p>
+    <div class="links">
+      <a class="btn btn-solid" data-wa="ola" href="#">Chamar no WhatsApp</a>
+      <a class="btn btn-line" data-wa="encomenda" href="#">Solicitar encomenda</a>
+      <a class="btn btn-line" data-ig href="#" hidden>Instagram</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <b>Ateliê Toque de Graça</b><i>Cartonagem e Personalizados</i>
+    <p style="margin-top:14px;font-family:var(--serif);font-style:italic;font-size:1.15rem">Criado com carinho, feito à mão e pensado para você.</p>
+    <ul>
+      <li><a href="#inicio">Início</a></li><li><a href="#produtos">Produtos</a></li>
+      <li><a href="#sobre">Sobre o Ateliê</a></li><li><a href="#contato">Contato</a></li>
+      <li><a data-ig href="#" hidden>Instagram</a></li><li><a data-wa="ola" href="#">WhatsApp</a></li>
+    </ul>
+    <small>© Ateliê Toque de Graça</small>
+  </div>
+</footer>
+
+<a class="float" data-wa="ola" href="#" aria-label="Conversar pelo WhatsApp">
+  <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3C8.8 3 3 8.8 3 16c0 2.3.6 4.5 1.7 6.4L3 29l6.8-1.8A13 13 0 0 0 16 29c7.2 0 13-5.8 13-13S23.2 3 16 3zm0 23.7c-2 0-3.9-.6-5.5-1.6l-.4-.2-4 1.1 1.1-3.9-.3-.4A10.7 10.7 0 1 1 16 26.700zm5.9-8c-.3-.2-1.900-.9-2.200-1s-.5-.2-.7.2-.8 1-1 1.200-.4.2-.7 0a8.700 8.700 0 0 1-4.300-3.800c-.3-.6.300-.5.900-1.700.1-.2 0-.4 0-.5l-1-2.300c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.100-.9.400s-1.200 1.200-1.200 2.900 1.200 3.300 1.400 3.500 2.400 3.700 5.800 5.100c2.100.9 2.900.9 4 .8.600-.1 1.900-.8 2.200-1.500s.3-1.400.2-1.500-.3-.2-.6-.4z"/></svg>
+</a>
+
+<script src="script.js"></script>
+</body>
+</html>
