@@ -199,20 +199,65 @@ function destino(parada){
   return { x, y: pos.y - gh, virada: p.dataset.lado === "dir", balao, alinhaDir, max };
 }
 
-// coloca a Graça no destino; devolve quanto tempo (ms) a viagem leva
-function posicionar(parada, instantaneo){
-  const d = destino(parada), antes = graca._pos;
-  const dist = antes ? Math.hypot(d.x - antes.x, d.y - antes.y) : 0;
-  const dur = Math.min(1.7, Math.max(.75, dist / 800));
-  graca.classList.toggle("sem-transicao", !!instantaneo || reduceMotion);
-  graca.style.setProperty("--viagem", dur + "s");
-  graca.style.transform = "translate(" + Math.round(d.x) + "px," + Math.round(d.y) + "px)";
+// aplica lado/balão do destino (sem mexer na posição)
+function vestir(d){
   graca.classList.toggle("virada", d.virada);
   gBalao.classList.remove("b-cima", "b-dir", "b-esq"); gBalao.classList.add("b-" + d.balao);
   gBalao.classList.toggle("b-alinha-dir", !!d.alinhaDir);
   gBalao.style.setProperty("--balao-max", Math.max(150, Math.min(300, d.max)) + "px");
-  graca._pos = d;
-  return (instantaneo || reduceMotion || dist < 4) ? 0 : dur * 1000;
+}
+
+// Onde ela fica AGORA: no ponto da seção, mas sem nunca sair da tela.
+// Se o ponto saiu da tela, ela "gruda" na borda e acompanha a rolagem.
+const cabecalho = document.querySelector("header");
+function alvoAgora(parada){
+  const d = destino(parada), gh = graca.offsetHeight;
+  const folgaBalao = d.balao === "cima" ? gBalao.offsetHeight + 22 : 8;
+  const topo = window.scrollY + cabecalho.offsetHeight + folgaBalao + 8;
+  const base = window.scrollY + window.innerHeight - gh - 10;
+  let y = d.y;
+  if(y < topo) y = topo;
+  if(y > base) y = base;
+  return Object.assign(d, { y, modo: y === d.y ? "pagina" : "tela" });
+}
+
+// "pagina" = rola junto com o conteúdo; "tela" = presa na borda da tela
+function aplicar(modo, x, y){
+  graca.style.position = modo === "tela" ? "fixed" : "absolute";
+  const tx = Math.round(x - (modo === "tela" ? window.scrollX : 0));
+  const ty = Math.round(y - (modo === "tela" ? window.scrollY : 0));
+  graca.style.transform = "translate(" + tx + "px," + ty + "px)";
+}
+
+let viajando = false, fimViagem = null;
+// reposiciona na hora (rolagem, mudança de layout)
+function acompanhar(){
+  if(!paradaAtual || viajando) return;
+  const a = alvoAgora(paradaAtual);
+  graca.classList.add("sem-transicao");
+  vestir(a); aplicar(a.modo, a.x, a.y);
+}
+
+// viagem com pulinhos até o lugar dela na seção; devolve a duração (ms)
+function viajar(parada){
+  const r = graca.getBoundingClientRect();
+  const ini = { x: r.left + window.scrollX, y: r.top + window.scrollY };
+  const a = alvoAgora(parada);
+  const dist = Math.hypot(a.x - ini.x, a.y - ini.y);
+  vestir(a);
+  graca.classList.add("sem-transicao");
+  aplicar(a.modo, ini.x, ini.y);              // mesmo ponto de partida, no modo de chegada
+  if(reduceMotion || dist < 4){ aplicar(a.modo, a.x, a.y); return 0; }
+  void graca.offsetWidth;
+  const dur = Math.min(1.5, Math.max(.7, dist / 900));
+  graca.style.setProperty("--viagem", dur + "s");
+  graca.classList.remove("sem-transicao");
+  aplicar(a.modo, a.x, a.y);
+  anima(graca, "andando");
+  viajando = true;
+  clearTimeout(fimViagem);
+  fimViagem = setTimeout(() => { viajando = false; graca.classList.remove("andando"); acompanhar(); }, dur * 1000);
+  return dur * 1000;
 }
 
 function textoDaParada(parada){
@@ -227,29 +272,30 @@ function falar(texto){
   digitar(gBalao, texto, () => graca.classList.remove("falando"));
 }
 
+function calar(){
+  clearTimeout(gracaTimer); clearTimeout(gBalao._timer);
+  gBalao.classList.remove("mostra", "digitando"); graca.classList.remove("falando");
+  setTimeout(() => { if(!gBalao.classList.contains("mostra")) gBalao.querySelector(".fala-texto").textContent = ""; }, 300);
+}
+
 // leva a Graça até uma seção (ou de um lado para o outro da vitrine)
 function irPara(parada){
   const primeira = !paradaAtual;
   paradaAtual = parada;
-  clearTimeout(gracaTimer);
-  gBalao.classList.remove("mostra"); graca.classList.remove("falando");
+  calar();                                   // corta a fala anterior na hora
   const texto = textoDaParada(parada);
   if(primeira){
-    posicionar(parada, true);
+    viajando = false; acompanhar();
     graca.classList.remove("espera");
     anima(graca, "chega");
     gracaTimer = setTimeout(() => { graca.classList.remove("chega"); anima(graca, "acena"); falar(texto); }, reduceMotion ? 0 : 800);
     return;
   }
-  // espera o balão sumir, depois viaja dando pulinhos
-  gracaTimer = setTimeout(() => {
-    const tempo = posicionar(parada, false);
-    if(tempo) anima(graca, "andando");
-    gracaTimer = setTimeout(() => { graca.classList.remove("andando"); falar(texto); }, tempo + 60);
-  }, reduceMotion ? 0 : 220);
+  const tempo = viajar(parada);
+  gracaTimer = setTimeout(() => falar(texto), tempo + 80);
 }
 
-// qual seção está no meio da tela
+// seção atual: a de cima continua valendo até a próxima ocupar metade da tela
 function paradaNaTela(){
   const fim = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4;
   if(fim) return paradas[paradas.length - 1];
@@ -258,17 +304,18 @@ function paradaNaTela(){
   paradas.forEach(p => { if(posPagina(p.sec).y <= linha) escolhida = p; });
   return escolhida;
 }
-let rolando = false;
-window.addEventListener("scroll", () => {
-  if(rolando) return; rolando = true;
-  requestAnimationFrame(() => { rolando = false; const p = paradaNaTela(); if(p !== paradaAtual) irPara(p); });
-}, {passive: true});
+function aoRolar(){
+  if(!paradaAtual) return;
+  const p = paradaNaTela();
+  if(p !== paradaAtual) irPara(p); else acompanhar();
+}
+window.addEventListener("scroll", aoRolar, {passive: true});
 
 // se o layout mudar (fontes, fotos, girar o celular), reposiciona sem viajar
 let ajustando = false;
 const reajustar = () => {
-  if(ajustando || !paradaAtual) return; ajustando = true;
-  requestAnimationFrame(() => { ajustando = false; posicionar(paradaAtual, true); });
+  if(ajustando) return; ajustando = true;
+  requestAnimationFrame(() => { ajustando = false; acompanhar(); });
 };
 window.addEventListener("resize", reajustar);
 if("ResizeObserver" in window) new ResizeObserver(reajustar).observe(document.body);
