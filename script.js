@@ -187,8 +187,9 @@ function posPagina(el){ let x = 0, y = 0; for(let e = el; e; e = e.offsetParent)
 function destino(parada){
   const p = parada.ponto, pos = posPagina(p), gw = graca.offsetWidth, gh = graca.offsetHeight;
   const larguraTela = document.documentElement.clientWidth;
-  if(p === palco){
-    const dir = ladoVitrine === 1;
+  if(p === palco || p.classList.contains("palco-secao")){
+    // espaço reservado: na vitrine ela alterna de lado; nas outras seções fica à esquerda
+    const dir = p === palco ? ladoVitrine === 1 : p.dataset.lado === "dir";
     return { x: dir ? pos.x + p.offsetWidth - gw : pos.x, y: pos.y + p.offsetHeight - gh,
              virada: dir, balao: dir ? "esq" : "dir", max: p.offsetWidth - gw - 16 };
   }
@@ -202,14 +203,14 @@ function destino(parada){
 // aplica lado/balão do destino (sem mexer na posição)
 function vestir(d){
   graca.classList.toggle("virada", d.virada);
-  graca._pref = { lado: d.balao, alinhaDir: !!d.alinhaDir };   // lado preferido do balão nesta seção
+  graca._pref = { lado: d.balao, alinhaDir: !!d.alinhaDir, max: d.max };   // lado preferido do balão nesta seção
 }
 
 /* ===== Balão que nunca cobre texto =====
    Testa o balão em volta da Graça (em cima, à direita, à esquerda, em larguras menores)
    e usa o primeiro lugar que não encosta em nenhum texto e cabe na tela.
    Se não houver lugar livre, o balão fica escondido até a pessoa rolar a página. */
-const SELETOR_TEXTO = "main h1, main h2, main h3, main p, main blockquote, main .eyebrow, main .btn, main .tab, main .info, main .dots, main .note, main .actions, main .links";
+const SELETOR_TEXTO = "main h1, main h2, main h3, main p, main blockquote, main .eyebrow, main .btn, main .tab, main .info, main .dots, main .note, main .actions, main .links, main .ph, main .arrow";
 const MARGEM_TEXTO = 10;   // distância mínima (px) entre o balão e qualquer texto
 
 function textosNaTela(){
@@ -233,7 +234,8 @@ function encaixarBalao(){
   const topoLivre = cabecalho.getBoundingClientRect().bottom + 4;
   gBalao.classList.add("medindo");
   let achou = null;
-  busca: for(const largura of [300, 240, 190]){
+  const maxPref = Math.max(170, Math.min(340, pref.max || 300));
+  busca: for(const largura of [maxPref, 240, 190, 160].filter((l, i) => i === 0 || l < maxPref)){
     for(const [lado, alinhaDir] of opcoes){
       poeBalao(lado, alinhaDir, largura);
       const r = gBalao.getBoundingClientRect();
@@ -264,10 +266,7 @@ function alvoAgora(parada){
   const topo = window.scrollY + cabecalho.offsetHeight + folgaBalao + 8;
   const base = window.scrollY + window.innerHeight - gh - 10;
   let y = d.y;
-  if("fixo" in parada.ponto.dataset) return Object.assign(d, { modo: "pagina" });   // presa no lugar (ex.: moldura)
-  if(y < topo) y = topo;
-  if(y > base) y = base;
-  return Object.assign(d, { y, modo: y === d.y ? "pagina" : "tela" });
+  return Object.assign(d, { modo: "pagina" });   // fica sempre no espaço dela (não cobre o conteúdo)
 }
 
 // "pagina" = rola junto com o conteúdo; "tela" = presa na borda da tela
@@ -355,13 +354,25 @@ function irPara(parada){
 }
 
 // seção atual: a de cima continua valendo até a próxima ocupar metade da tela
+// quanto do espaço da Graça numa seção aparece na tela (0 a 1) e a distância até o meio da tela
+function visibilidade(parada){
+  const d = destino(parada), gh = graca.offsetHeight;
+  const topoTela = cabecalho.offsetHeight, baseTela = window.innerHeight;
+  const topo = d.y - window.scrollY, base = topo + gh;
+  const visto = Math.max(0, Math.min(base, baseTela) - Math.max(topo, topoTela));
+  return { frac: visto / gh, centro: Math.abs((topo + base) / 2 - (topoTela + baseTela) / 2) };
+}
+// Ela continua onde está enquanto o espaço dela estiver inteiro na tela.
+// Quando ele começa a sair, ela vai para o espaço de outra seção que esteja visível.
 function paradaNaTela(){
-  const fim = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4;
-  if(fim) return paradas[paradas.length - 1];
-  const linha = window.scrollY + window.innerHeight * .5;
-  let escolhida = paradas[0];
-  paradas.forEach(p => { if(posPagina(p.sec).y <= linha) escolhida = p; });
-  return escolhida;
+  if(paradaAtual && visibilidade(paradaAtual).frac > .98) return paradaAtual;
+  let melhor = null, mv = null;
+  paradas.forEach(p => {
+    const v = visibilidade(p);
+    if(v.frac <= .02) return;
+    if(!melhor || v.frac > mv.frac + .02 || (Math.abs(v.frac - mv.frac) <= .02 && v.centro < mv.centro)){ melhor = p; mv = v; }
+  });
+  return melhor || paradaAtual || paradas[0];
 }
 function aoRolar(){
   if(!paradaAtual) return;

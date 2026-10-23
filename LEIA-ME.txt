@@ -4,11 +4,15 @@ Edite WhatsApp, Instagram, categorias e produtos no início de script.js.
 Imagens: images/inicio/principal.jpg, images/atelie/processo.jpg, images/atelie/atelie.jpg, images/produtos/ e images/logo/.
 
 Graça (a apresentadora animada):
-- É uma só Graça que viaja pela página: quando uma seção chega no meio da tela, ela pula até o "ponto" daquela seção e fala.
-- Os pontos são as <div class="ponto ..."> no index.html. O texto do balão fica no data-fala (separe falas alternativas com | ).
-  data-balao = onde aparece o balão (cima, dir ou esq); data-lado="dir" = ela fica virada para a esquerda.
-- A posição de cada ponto se ajusta no style.css (.ponto-inicio, .ponto-artesanal, .ponto-sobre, .ponto-encomenda, .ponto-contato).
-- Na vitrine ela anda de um lado para o outro a cada produto. Falas: campo "fala" de cada item em PRODUTOS (script.js);
-  sem "fala", ela usa uma das FALAS_PADRAO.
+- É uma só Graça que viaja pela página. Cada seção tem um espaço reservado para ela
+  (<div class="ponto palco-secao">), onde ela fica com o balão ao lado sem cobrir textos nem fotos.
+- Ela fica no espaço dela enquanto ele estiver inteiro na tela; quando ele sai, ela pula para o espaço
+  de outra seção que esteja visível, e corta a fala anterior.
+- Falas: atributo data-fala de cada espaço no index.html (separe falas alternativas com | ).
+- Na vitrine ela anda de um lado para o outro a cada produto. Falas: campo "fala" de cada item em
+  PRODUTOS (script.js); sem "fala", ela usa uma das FALAS_PADRAO.
+- No "Sob encomenda" ela fica em pé em cima da moldura (.ponto-encomenda no style.css).
+- O balão nunca cobre textos nem fotos: se não houver espaço livre, ele espera.
+  Distância mínima: MARGEM_TEXTO em script.js.
 - Tamanho da Graça: --gw no style.css. Tempo entre produtos: AUTO_MS em script.js.
 - Imagem: images/graca/graca.webp (graca.png é uma cópia de reserva).

@@ -132,7 +132,7 @@ footer small{opacity:.8}
 
 /* ================= GRAÇA, A APRESENTADORA =================
    Uma só Graça, posicionada pelo script no "ponto" (.ponto) da seção que está na tela.
-   Para mudar onde ela fica em cada seção, ajuste os .ponto-* abaixo. */
+   Em cada seção ela tem um espaço reservado (.palco-secao) para não cobrir textos nem fotos. */
 :root{--gw:clamp(112px,12vw,156px);--gh:calc(var(--gw) * 1.06)}
 body{overflow-x:clip}
 .graca{position:absolute;left:0;top:0;z-index:40;margin:0;width:var(--gw);pointer-events:none;
@@ -171,16 +171,22 @@ body{overflow-x:clip}
 /* pontos: onde os pés da Graça ficam em cada seção (altura 0 = linha do chão) */
 .ponto{position:absolute;width:var(--gw);height:0;pointer-events:none}
 .hero-visual,.foto,.box,.contact .wrap{position:relative}
-.ponto-inicio{left:-34px;bottom:-26px}
-.ponto-artesanal{right:-26px;bottom:-22px}
-.ponto-sobre{left:-26px;bottom:-22px}
 /* sob encomenda: em pé em cima da moldura, com a faixa apoiada na borda */
 .custom{padding-top:calc(var(--gh) + 50px)}
 .ponto-encomenda{right:56px;top:calc(var(--gw) * .1)}
-.ponto-contato{left:-200px;bottom:6px}
 /* vitrine: espaço onde ela anda de um lado para o outro */
 .apresentadora{max-width:820px;margin:0 auto 18px}
 .palco.ponto{position:relative;width:auto;height:calc(var(--gh) + 18px)}
+/* espaço reservado da Graça nas seções: ela à esquerda, balão à direita */
+.palco-secao.ponto{position:relative;width:auto;height:calc(var(--gh) + 18px);margin-top:26px}
+.contact .palco-secao.ponto{max-width:540px;margin:30px auto 0}
+/* no início, telas largas: tudo um pouco mais compacto para a Graça aparecer já na abertura */
+@media(min-width:821px){
+  .hero{padding-top:26px}
+  .hero h1{font-size:clamp(2.2rem,4.6vw,3.35rem)}
+  .hero .actions{margin-top:20px}
+  .hero .palco-secao.ponto{margin-top:10px}
+}
 
 @media(min-width:1000px){
   .stage .apresentadora{position:absolute;top:0;right:0;width:calc((100% - 28px) / 2.5);margin:0;z-index:4}
@@ -190,12 +196,7 @@ body{overflow-x:clip}
 @media(max-width:820px){
   .hero-visual{max-width:380px;margin:0 auto;width:100%}
   .hero-visual .arch{max-width:none}
-  .ponto-inicio{left:-12px}
   .about .split .foto{order:-1;max-width:420px;margin:0 auto;width:100%}
-  .ponto-artesanal{right:-8px}
-  .ponto-sobre{left:-8px}
-  .contact{padding-bottom:calc(var(--gh) + 115px)}
-  .ponto-contato{left:auto;right:8px;top:auto;bottom:calc(-1 * var(--gh) - 84px)}
 }
 @media(max-width:760px){
   .slide{grid-template-columns:1fr;gap:16px}
