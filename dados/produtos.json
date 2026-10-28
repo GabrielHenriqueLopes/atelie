@@ -1,132 +1,147 @@
 {
   "produtos": [
     {
-      "nome": "Caixa personalizada",
+      "ajuste": {
+        "modo": "inteira",
+        "zoom": 100,
+        "x": 50,
+        "y": 50
+      },
+      "personalizavel": true,
+      "exemplo": false,
+      "nome": "TESTE",
+      "descricao": "AA",
       "categoria": "Cartonagem artesanal",
-      "descricao": "Caixa em cartonagem feita sob medida.",
-      "preco": "",
-      "imagem": "",
-      "personalizavel": true,
-      "fala": "Essa caixa eu faço sob medida, do tamanho que você precisar! 📦",
-      "exemplo": true,
-      "ajuste": {
-        "modo": "inteira",
-        "zoom": 100,
-        "x": 50,
-        "y": 50
-      }
-    },
-    {
-      "nome": "Bloco de Anotações",
-      "categoria": "Papelaria personalizada",
-      "descricao": "Bloco de Anotações personalizado a mão.",
-      "preco": "",
       "imagem": "/images/produtos/blocorosa.png",
+      "fala": "AAAA"
+    },
+    {
+      "descricao": "Caixa em cartonagem feita sob medida.",
       "personalizavel": true,
+      "preco": "",
+      "fala": "Essa caixa eu faço sob medida, do tamanho que você precisar! 📦",
+      "imagem": "",
+      "categoria": "Cartonagem artesanal",
+      "ajuste": {
+        "modo": "inteira",
+        "zoom": 100,
+        "x": 50,
+        "y": 50
+      },
+      "exemplo": true,
+      "nome": "Caixa personalizada"
+    },
+    {
+      "descricao": "Bloco de Anotações personalizado a mão.",
+      "personalizavel": true,
+      "preco": "",
       "fala": "Olha esse bloquinho rosa! Cada detalhe é personalizado à mão 💕",
-      "exemplo": true,
+      "imagem": "/images/produtos/blocorosa.png",
+      "categoria": "Papelaria personalizada",
       "ajuste": {
         "modo": "inteira",
         "zoom": 100,
         "x": 50,
         "y": 50
-      }
+      },
+      "exemplo": true,
+      "nome": "Bloco de Anotações"
     },
     {
-      "nome": "Planner personalizado",
-      "categoria": "Papelaria personalizada",
       "descricao": "Planner para organizar a rotina.",
-      "preco": "",
-      "imagem": "",
       "personalizavel": false,
+      "preco": "",
       "fala": "Um planner pra deixar a rotina mais leve e organizada ✨",
-      "exemplo": true,
-      "ajuste": {
-        "modo": "inteira",
-        "zoom": 100,
-        "x": 50,
-        "y": 50
-      }
-    },
-    {
-      "nome": "Lembrancinha especial",
-      "categoria": "Presentes e lembranças",
-      "descricao": "Mimo para datas especiais.",
-      "preco": "",
       "imagem": "",
-      "personalizavel": true,
-      "fala": "",
-      "exemplo": true,
-      "ajuste": {
-        "modo": "inteira",
-        "zoom": 100,
-        "x": 50,
-        "y": 50
-      }
-    },
-    {
-      "nome": "Diário da gestante",
-      "categoria": "Diários e cadernetas",
-      "descricao": "Diário para registrar a gestação.",
-      "preco": "",
-      "imagem": "",
-      "personalizavel": true,
-      "fala": "O diário da gestante é pra guardar cada momento dessa fase tão especial 🤰",
-      "exemplo": true,
-      "ajuste": {
-        "modo": "inteira",
-        "zoom": 100,
-        "x": 50,
-        "y": 50
-      }
-    },
-    {
-      "nome": "Caderneta de saúde",
-      "categoria": "Diários e cadernetas",
-      "descricao": "Caderneta personalizada.",
-      "preco": "",
-      "imagem": "",
-      "personalizavel": true,
-      "fala": "",
-      "exemplo": true,
-      "ajuste": {
-        "modo": "inteira",
-        "zoom": 100,
-        "x": 50,
-        "y": 50
-      }
-    },
-    {
-      "nome": "Bloquinho de anotações",
       "categoria": "Papelaria personalizada",
-      "descricao": "Bloquinho para o dia a dia.",
-      "preco": "",
-      "imagem": "",
-      "personalizavel": false,
-      "fala": "",
-      "exemplo": true,
       "ajuste": {
         "modo": "inteira",
         "zoom": 100,
         "x": 50,
         "y": 50
-      }
+      },
+      "exemplo": true,
+      "nome": "Planner personalizado"
     },
     {
-      "nome": "Kit presente",
-      "categoria": "Presentes e lembranças",
-      "descricao": "Peças preparadas para presentear.",
-      "preco": "",
-      "imagem": "",
+      "descricao": "Mimo para datas especiais.",
       "personalizavel": true,
+      "preco": "",
       "fala": "",
-      "exemplo": true,
+      "imagem": "",
+      "categoria": "Presentes e lembranças",
       "ajuste": {
         "modo": "inteira",
         "zoom": 100,
         "x": 50,
         "y": 50
-      }
+      },
+      "exemplo": true,
+      "nome": "Lembrancinha especial"
+    },
+    {
+      "descricao": "Diário para registrar a gestação.",
+      "personalizavel": true,
+      "preco": "",
+      "fala": "O diário da gestante é pra guardar cada momento dessa fase tão especial 🤰",
+      "imagem": "",
+      "categoria": "Diários e cadernetas",
+      "ajuste": {
+        "modo": "inteira",
+        "zoom": 100,
+        "x": 50,
+        "y": 50
+      },
+      "exemplo": true,
+      "nome": "Diário da gestante"
+    },
+    {
+      "descricao": "Caderneta personalizada.",
+      "personalizavel": true,
+      "preco": "",
+      "fala": "",
+      "imagem": "",
+      "categoria": "Diários e cadernetas",
+      "ajuste": {
+        "modo": "inteira",
+        "zoom": 100,
+        "x": 50,
+        "y": 50
+      },
+      "exemplo": true,
+      "nome": "Caderneta de saúde"
+    },
+    {
+      "descricao": "Bloquinho para o dia a dia.",
+      "personalizavel": false,
+      "preco": "",
+      "fala": "",
+      "imagem": "",
+      "categoria": "Papelaria personalizada",
+      "ajuste": {
+        "modo": "inteira",
+        "zoom": 100,
+        "x": 50,
+        "y": 50
+      },
+      "exemplo": true,
+      "nome": "Bloquinho de anotações"
+    },
+    {
+      "descricao": "Peças preparadas para presentear.",
+      "personalizavel": true,
+      "preco": "",
+      "fala": "",
+      "imagem": "",
+      "categoria": "Presentes e lembranças",
+      "ajuste": {
+        "modo": "inteira",
+        "zoom": 100,
+        "x": 50,
+        "y": 50
+      },
+      "exemplo": true,
+      "nome": "Kit presente"
     }
   ]
 }
