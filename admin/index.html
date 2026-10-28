@@ -5,11 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex">
   <title>Painel do Ateliê Toque de Graça</title>
+  <!-- Caminho completo: funciona abrindo /admin com ou sem a barra no final -->
+  <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url">
 </head>
 <body>
   <!-- Painel de edição do site (Decap CMS). As configurações ficam em admin/config.yml -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   <!-- Prévia de como as fotos ficam no site -->
-  <script src="preview.js"></script>
+  <script src="/admin/preview.js"></script>
 </body>
 </html>
