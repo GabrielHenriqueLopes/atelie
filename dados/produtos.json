@@ -1,0 +1,132 @@
+{
+  "produtos": [
+    {
+      "nome": "Caixa personalizada",
+      "categoria": "Cartonagem artesanal",
+      "descricao": "Caixa em cartonagem feita sob medida.",
+      "preco": "",
+      "imagem": "",
+      "personalizavel": true,
+      "fala": "Essa caixa eu faço sob medida, do tamanho que você precisar! 📦",
+      "exemplo": true,
+      "ajuste": {
+        "modo": "inteira",
+        "zoom": 100,
+        "x": 50,
+        "y": 50
+      }
+    },
+    {
+      "nome": "Bloco de Anotações",
+      "categoria": "Papelaria personalizada",
+      "descricao": "Bloco de Anotações personalizado a mão.",
+      "preco": "",
+      "imagem": "/images/produtos/blocorosa.png",
+      "personalizavel": true,
+      "fala": "Olha esse bloquinho rosa! Cada detalhe é personalizado à mão 💕",
+      "exemplo": true,
+      "ajuste": {
+        "modo": "inteira",
+        "zoom": 100,
+        "x": 50,
+        "y": 50
+      }
+    },
+    {
+      "nome": "Planner personalizado",
+      "categoria": "Papelaria personalizada",
+      "descricao": "Planner para organizar a rotina.",
+      "preco": "",
+      "imagem": "",
+      "personalizavel": false,
+      "fala": "Um planner pra deixar a rotina mais leve e organizada ✨",
+      "exemplo": true,
+      "ajuste": {
+        "modo": "inteira",
+        "zoom": 100,
+        "x": 50,
+        "y": 50
+      }
+    },
+    {
+      "nome": "Lembrancinha especial",
+      "categoria": "Presentes e lembranças",
+      "descricao": "Mimo para datas especiais.",
+      "preco": "",
+      "imagem": "",
+      "personalizavel": true,
+      "fala": "",
+      "exemplo": true,
+      "ajuste": {
+        "modo": "inteira",
+        "zoom": 100,
+        "x": 50,
+        "y": 50
+      }
+    },
+    {
+      "nome": "Diário da gestante",
+      "categoria": "Diários e cadernetas",
+      "descricao": "Diário para registrar a gestação.",
+      "preco": "",
+      "imagem": "",
+      "personalizavel": true,
+      "fala": "O diário da gestante é pra guardar cada momento dessa fase tão especial 🤰",
+      "exemplo": true,
+      "ajuste": {
+        "modo": "inteira",
+        "zoom": 100,
+        "x": 50,
+        "y": 50
+      }
+    },
+    {
+      "nome": "Caderneta de saúde",
+      "categoria": "Diários e cadernetas",
+      "descricao": "Caderneta personalizada.",
+      "preco": "",
+      "imagem": "",
+      "personalizavel": true,
+      "fala": "",
+      "exemplo": true,
+      "ajuste": {
+        "modo": "inteira",
+        "zoom": 100,
+        "x": 50,
+        "y": 50
+      }
+    },
+    {
+      "nome": "Bloquinho de anotações",
+      "categoria": "Papelaria personalizada",
+      "descricao": "Bloquinho para o dia a dia.",
+      "preco": "",
+      "imagem": "",
+      "personalizavel": false,
+      "fala": "",
+      "exemplo": true,
+      "ajuste": {
+        "modo": "inteira",
+        "zoom": 100,
+        "x": 50,
+        "y": 50
+      }
+    },
+    {
+      "nome": "Kit presente",
+      "categoria": "Presentes e lembranças",
+      "descricao": "Peças preparadas para presentear.",
+      "preco": "",
+      "imagem": "",
+      "personalizavel": true,
+      "fala": "",
+      "exemplo": true,
+      "ajuste": {
+        "modo": "inteira",
+        "zoom": 100,
+        "x": 50,
+        "y": 50
+      }
+    }
+  ]
+}

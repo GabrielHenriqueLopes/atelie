@@ -1,0 +1,39 @@
+COMO ATUALIZAR O SITE DO ATELIÊ TOQUE DE GRAÇA
+==============================================
+
+ENTRAR
+1. Abra: https://atelie-hazel.vercel.app/admin
+2. Clique em "Entrar com GitHub" (Login with GitHub) e use a sua conta do GitHub.
+   Na primeira vez o GitHub pede para autorizar: clique em "Authorize".
+
+ADICIONAR OU MUDAR UM PRODUTO
+1. No menu da esquerda, clique em "Produtos" e depois em "Lista de produtos".
+2. Para um produto novo: clique em "Adicionar produto" (aparece no topo da lista).
+   Para mudar um que já existe: clique no nome dele para abrir.
+3. Preencha:
+   - Nome, Categoria e Descrição.
+   - Preço: escreva como quer que apareça (ex.: R$ 45,00). Vazio = "Consulte o valor".
+   - Foto: clique em "Escolher uma imagem" > "Enviar" e escolha a foto do computador ou celular.
+     Dica: fotos quadradas e leves (até 1 MB) deixam o site mais rápido.
+   - Ajuste da foto (clique para abrir): escolha como a foto aparece no quadro e veja o
+     resultado na prévia à direita da tela:
+       * "Mostrar a foto inteira" ou "Preencher o quadro todo" (corta um pouco as bordas);
+       * Zoom: 100 é o normal; 150 aproxima 1,5 vez;
+       * Posição horizontal e vertical: escolhe qual parte da foto fica no centro
+         (ex.: vertical 0 mostra mais o topo da foto, 100 mostra mais a base).
+   - "Pode ser personalizado?": ligado mostra a etiqueta "Personalizável".
+   - Fala da Graça: o que a personagem diz quando o produto aparece (pode deixar vazio).
+   - "É só um exemplo?": deixe DESLIGADO nos produtos de verdade.
+4. Para mudar a ordem, arraste o produto pela alça (os pontinhos) à esquerda.
+5. Para apagar, abra o produto e clique no "x" / "Remover".
+6. Clique em "Publicar" > "Publicar agora" no alto da página.
+   O site atualiza sozinho em cerca de 1 a 2 minutos.
+
+TROCAR AS FOTOS DAS SEÇÕES, AS FALAS DA GRAÇA OU O WHATSAPP
+1. Clique em "Configurações do site" > "Fotos, falas da Graça e contatos".
+   Cada foto de seção também tem o "Ajuste da foto", com prévia no formato do site.
+2. Troque o que quiser e clique em "Publicar" > "Publicar agora".
+
+DICAS
+- Se o site ainda mostrar a versão antiga, espere 2 minutos e atualize a página (F5).
+- Nada é perdido: cada publicação fica guardada no histórico e pode ser desfeita.

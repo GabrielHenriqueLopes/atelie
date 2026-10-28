@@ -1,20 +1,24 @@
 document.documentElement.classList.add("js");
-/* ================= CONFIGURAÇÃO (edite aqui) ================= */
-const WHATSAPP = "5511997130075";          // número com DDI + DDD
-const INSTAGRAM_URL = "https://www.instagram.com/atelie_toquedegraca_cartonagem/";                  // cole aqui o link do Instagram do ateliê; vazio = link oculto
+/* ================= CONFIGURAÇÃO =================
+   Os produtos, as fotos das seções, as falas da Graça, o WhatsApp e o Instagram agora são
+   editados pelo painel em /admin (ficam nos arquivos dados/produtos.json e dados/site.json).
+   Os valores abaixo são só uma RESERVA, usada se esses arquivos não puderem ser lidos
+   (por exemplo, ao abrir o index.html direto do computador, sem servidor). */
+let WHATSAPP = "5511997130075";          // número com DDI + DDD
+let INSTAGRAM_URL = "https://www.instagram.com/atelie_toquedegraca_cartonagem/";                  // cole aqui o link do Instagram do ateliê; vazio = link oculto
 const MENSAGENS = {
   ola: "Olá! Conheci o Ateliê Toque de Graça pelo site e gostaria de tirar algumas dúvidas.",
   encomenda: "Olá! Conheci o Ateliê Toque de Graça pelo site e gostaria de fazer uma encomenda.",
   personalizado: "Olá! Conheci o Ateliê Toque de Graça pelo site e gostaria de conversar sobre uma encomenda personalizada. Tenho uma ideia e gostaria de saber quais são as possibilidades."
 };
-const CATEGORIAS = ["Cartonagem artesanal","Papelaria personalizada","Presentes e lembranças","Diários e cadernetas"];
+let CATEGORIAS = ["Cartonagem artesanal","Papelaria personalizada","Presentes e lembranças","Diários e cadernetas"];
 
 /* ============ PRODUTOS (arquivo de dados) ============
    Campos: id, nome, categoria, descricao, preco (ex.: "R$ 45,00" ou vazio),
    imagem (ex.: "images/produtos/caixa.jpg" ou vazio), personalizacao, botao,
    fala (opcional: o que a Graça diz no balão quando o produto aparece; vazio = frase automática).
    exemplo:true marca o item como demonstrativo — remova ao cadastrar o produto real. */
-const PRODUTOS = [
+let PRODUTOS = [
   {id:"ex-1",fala:"Essa caixa eu faço sob medida, do tamanho que você precisar! 📦",nome:"Caixa personalizada",categoria:"Cartonagem artesanal",descricao:"Caixa em cartonagem feita sob medida.",preco:"",imagem:"",personalizacao:"Personalizável",botao:"Consultar",exemplo:true},
   {id:"ex-2",fala:"Olha esse bloquinho rosa! Cada detalhe é personalizado à mão 💕",nome:"Bloco de Anotações",categoria:"Papelaria personalizada",descricao:"Bloco de Anotações personalizado a mão.",preco:"",imagem:"images/produtos/blocorosa.png",personalizacao:"Personalizável",botao:"Consultar",exemplo:true},
   {id:"ex-3",fala:"Um planner pra deixar a rotina mais leve e organizada ✨",nome:"Planner personalizado",categoria:"Papelaria personalizada",descricao:"Planner para organizar a rotina.",preco:"",imagem:"",personalizacao:"",botao:"Consultar",exemplo:true},
@@ -30,6 +34,19 @@ const wa = t => "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(t);
 const FLOWER = '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><circle cx="20" cy="20" r="3"/><path d="M20 17c-4-6-1-12 0-12s4 6 0 12zM23 20c6-4 12-1 12 0s-6 4-12 0zM20 23c4 6 1 12 0 12s-4-6 0-12zM17 20c-6 4-12 1-12 0s6-4 12 0z"/></svg>';
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
+// Enquadramento escolhido no painel: foto inteira ou preenchendo o quadro, zoom e posição
+function aplicarAjuste(img, ajusteTexto){
+  let a = {};
+  try{ a = typeof ajusteTexto === "string" ? JSON.parse(ajusteTexto || "{}") : (ajusteTexto || {}); }catch(e){}
+  if(!a.modo && a.zoom == null && a.x == null && a.y == null) return;   // sem ajuste: usa o padrão do site
+  const n = (v, d, min, max) => { v = Number(v); return isFinite(v) ? Math.min(max, Math.max(min, v)) : d; };
+  const x = n(a.x, 50, 0, 100), y = n(a.y, 50, 0, 100), zoom = n(a.zoom, 100, 50, 400) / 100;
+  if(a.modo) img.style.objectFit = a.modo === "preencher" ? "cover" : "contain";
+  img.style.objectPosition = x + "% " + y + "%";
+  img.style.transformOrigin = x + "% " + y + "%";
+  img.style.transform = zoom !== 1 ? "scale(" + zoom + ")" : "";
+}
+
 function fillPlaceholder(el){
   const src = el.dataset.img, label = el.dataset.label || "Fotografia";
   el.innerHTML = FLOWER + "<span>" + esc(label) + "</span>";
@@ -37,6 +54,7 @@ function fillPlaceholder(el){
   const img = new Image();
   img.alt = el.dataset.alt || "";
        img.decoding = "async";
+  aplicarAjuste(img, el.dataset.ajuste);
   img.onload = () => el.appendChild(img);   // só exibe se a imagem existir
   img.src = src;
 }
@@ -72,7 +90,7 @@ function renderGrid(cat){
     s.setAttribute("aria-label", (i+1) + " de " + lista.length);
     const msg = "Olá! Conheci o Ateliê Toque de Graça pelo site e gostaria de saber mais sobre o produto " + p.nome + ". Poderia me passar mais informações?";
     s.innerHTML =
-      '<div class="ph" data-img="' + esc(p.imagem) + '" data-alt="' + esc(p.nome) + '" data-label="Foto em breve"></div>' +
+      '<div class="ph" data-img="' + esc(p.imagem) + '" data-ajuste="' + esc(JSON.stringify(p.ajuste || {})) + '" data-alt="' + esc(p.nome) + '" data-label="Foto em breve"></div>' +
       '<div class="info">' +
         (p.exemplo ? '<span class="demo">Exemplo</span>' : '') +
         '<span class="cat">' + esc(p.categoria) + '</span>' +
@@ -135,13 +153,58 @@ function stopAuto(){ clearInterval(autoTimer); }
   });
 })();
 
-document.querySelectorAll("[data-wa]").forEach(a => {
-  a.href = wa(MENSAGENS[a.dataset.wa]); a.target = "_blank"; a.rel = "noopener";
-});
-document.querySelectorAll("[data-ig]").forEach(a => {
-  if(INSTAGRAM_URL){ a.href = INSTAGRAM_URL; a.target = "_blank"; a.rel = "noopener"; a.hidden = false; }
-});
-document.querySelectorAll("body > main .ph").forEach(fillPlaceholder);
+/* ================= DADOS DO PAINEL (/admin) ================= */
+async function lerJSON(url){
+  const r = await fetch(url, {cache: "no-cache"});
+  if(!r.ok) throw new Error(url + ": " + r.status);
+  return r.json();
+}
+async function carregarDados(){
+  try{
+    const [prod, site] = await Promise.all([lerJSON("dados/produtos.json"), lerJSON("dados/site.json")]);
+    if(prod && Array.isArray(prod.produtos)){
+      PRODUTOS = prod.produtos.filter(p => p && p.nome).map((p, i) => ({
+        id: "p" + i, nome: p.nome, categoria: p.categoria || "", descricao: p.descricao || "",
+        preco: p.preco || "", imagem: p.imagem || "", fala: p.fala || "", ajuste: p.ajuste || null,
+        personalizacao: p.personalizavel ? "Personalizável" : "", botao: "Consultar", exemplo: !!p.exemplo
+      }));
+    }
+    if(site){
+      if(site.whatsapp) WHATSAPP = String(site.whatsapp).replace(/\D/g, "");
+      if("instagram" in site) INSTAGRAM_URL = site.instagram || "";
+      if(Array.isArray(site.categorias) && site.categorias.length) CATEGORIAS = site.categorias.filter(Boolean);
+      const fotos = site.fotos || {};
+      const alvoFoto = {inicio: "#inicio .ph", processo: "#artesanal .ph", atelie: "#sobre .ph"};
+      Object.keys(alvoFoto).forEach(k => {
+        const el = document.querySelector(alvoFoto[k]), f = fotos[k];
+        if(!el || !f) return;
+        const foto = typeof f === "string" ? {imagem: f} : f;           // aceita o formato antigo (só o caminho)
+        if(foto.imagem){ el.dataset.img = foto.imagem; el.dataset.ajuste = JSON.stringify(foto.ajuste || {}); }
+      });
+      const falas = site.falas || {};
+      const alvoFala = {inicio: "#inicio .ponto", artesanal: "#artesanal .ponto", sobre: "#sobre .ponto",
+                        encomenda: "#personalizados .ponto", contato: "#contato .ponto"};
+      Object.keys(alvoFala).forEach(k => {
+        const el = document.querySelector(alvoFala[k]);
+        const lista = (falas[k] || []).map(f => typeof f === "string" ? f : (f && f.fala) || "").filter(Boolean);
+        if(el && lista.length) el.dataset.fala = lista.join("|");
+      });
+    }
+  }catch(e){ console.warn("Usando os dados de reserva do script.js:", e.message); }
+}
+
+function aplicarDados(){
+  document.querySelectorAll("[data-wa]").forEach(a => {
+    a.href = wa(MENSAGENS[a.dataset.wa]); a.target = "_blank"; a.rel = "noopener";
+  });
+  document.querySelectorAll("[data-ig]").forEach(a => {
+    if(INSTAGRAM_URL){ a.href = INSTAGRAM_URL; a.target = "_blank"; a.rel = "noopener"; a.hidden = false; }
+    else a.hidden = true;
+  });
+  document.querySelectorAll("body > main .ph").forEach(fillPlaceholder);
+  const aviso = document.querySelector("#produtos .note");      // aviso "Exemplo" só aparece se houver exemplo
+  if(aviso) aviso.hidden = !PRODUTOS.some(p => p.exemplo);
+}
 /* ================= GRAÇA, A APRESENTADORA =================
    Uma só Graça que "viaja" pela página: em cada seção ela vai até o ponto marcado
    com class="ponto" no index.html e fala o texto do data-fala dele.
@@ -414,9 +477,13 @@ function observar(el, aoAparecer, limite){
 }
 document.querySelectorAll(".revela").forEach(el => observar(el, e => e.classList.add("visivel"), .15));
 
-renderTabs(); renderGrid("Todos");
-window.addEventListener("load", () => irPara(paradaNaTela()));
-if(document.readyState === "complete") irPara(paradaNaTela());
+// Carrega os dados do painel e só então monta a vitrine e chama a Graça
+const paginaCarregada = new Promise(r => document.readyState === "complete" ? r() : window.addEventListener("load", r));
+carregarDados().then(() => {
+  aplicarDados();
+  renderTabs(); renderGrid("Todos");
+  return paginaCarregada;
+}).then(() => irPara(paradaNaTela()));
 
 const burger = document.getElementById("burger"), menu = document.getElementById("menu");
 burger.onclick = () => { const o = menu.classList.toggle("open"); burger.setAttribute("aria-expanded", o); burger.textContent = o ? "✕" : "☰"; };

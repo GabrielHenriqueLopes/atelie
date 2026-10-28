@@ -1,0 +1,168 @@
+# ===================== PAINEL DO ATELIÊ (Decap CMS) =====================
+# Página: https://atelie-hazel.vercel.app/admin
+# Login com conta do GitHub que tenha acesso ao repositório.
+# Ao clicar em "Publicar", o painel grava no GitHub e a Vercel atualiza o site em ~1 minuto.
+
+backend:
+  name: github
+  repo: GabrielHenriqueLopes/atelie
+  branch: main
+  base_url: https://atelie-hazel.vercel.app   # onde ficam as funções de login (pasta api/)
+  auth_endpoint: api/auth
+  commit_messages:
+    update: "Painel: atualiza {{collection}} “{{slug}}”"
+    uploadMedia: "Painel: envia foto {{path}}"
+    deleteMedia: "Painel: apaga foto {{path}}"
+
+locale: pt
+site_url: https://atelie-hazel.vercel.app
+display_url: https://atelie-hazel.vercel.app
+
+# Onde as fotos enviadas pelo painel são guardadas
+media_folder: images/produtos
+public_folder: /images/produtos
+
+collections:
+  - name: vitrine
+    label: Produtos
+    description: "Produtos que aparecem na vitrine do site. Arraste para mudar a ordem."
+    files:
+      - name: produtos
+        label: Lista de produtos
+        file: dados/produtos.json
+        fields:
+          - name: produtos
+            label: Produtos
+            label_singular: produto
+            widget: list
+            summary: "{{fields.nome}} — {{fields.categoria}}"
+            add_to_top: true
+            fields:
+              - { name: nome, label: Nome do produto, widget: string }
+              - name: categoria
+                label: Categoria
+                widget: select
+                # As opções precisam ser as mesmas da lista "Categorias" em Configurações do site
+                options: ["Cartonagem artesanal", "Papelaria personalizada", "Presentes e lembranças", "Diários e cadernetas"]
+              - { name: descricao, label: Descrição, widget: text }
+              - { name: preco, label: "Preço (ex.: R$ 45,00) — deixe vazio para mostrar “Consulte o valor”", widget: string, required: false }
+              - name: imagem
+                label: Foto
+                widget: image
+                required: false
+                hint: "Prefira fotos quadradas e leves (até 1 MB). Fotos muito grandes deixam o site lento."
+              - name: ajuste
+                label: Ajuste da foto
+                widget: object
+                collapsed: true
+                hint: "Veja o resultado na prévia ao lado enquanto ajusta."
+                fields:
+                  - name: modo
+                    label: Como a foto ocupa o quadro
+                    widget: select
+                    default: inteira
+                    options:
+                      - { label: "Mostrar a foto inteira (pode sobrar espaço nas bordas)", value: inteira }
+                      - { label: "Preencher o quadro todo (corta um pouco as bordas)", value: preencher }
+                  - { name: zoom, label: "Zoom (100 = normal, 150 = aproxima 1,5x)", widget: number, value_type: int, min: 50, max: 300, step: 5, default: 100 }
+                  - { name: x, label: "Posição horizontal (0 = esquerda, 50 = centro, 100 = direita)", widget: number, value_type: int, min: 0, max: 100, step: 5, default: 50 }
+                  - { name: y, label: "Posição vertical (0 = topo, 50 = centro, 100 = base)", widget: number, value_type: int, min: 0, max: 100, step: 5, default: 50 }
+              - { name: personalizavel, label: "Pode ser personalizado?", widget: boolean, default: true, required: false }
+              - { name: fala, label: "Fala da Graça sobre este produto (opcional)", widget: string, required: false, hint: "Se ficar vazio, ela usa uma frase automática com o nome e a descrição." }
+              - { name: exemplo, label: "É só um exemplo? (mostra o selo “Exemplo”)", widget: boolean, default: false, required: false }
+
+  - name: configuracoes
+    label: Configurações do site
+    files:
+      - name: site
+        label: Fotos, falas da Graça e contatos
+        file: dados/site.json
+        fields:
+          - name: fotos
+            label: Fotos das seções
+            widget: object
+            collapsed: false
+            fields:
+              - name: inicio
+                label: "Foto principal (início do site, formato arco)"
+                widget: object
+                collapsed: true
+                fields:
+                  - { name: imagem, label: Foto, widget: image, required: false, hint: "Fotos leves (até 1 MB) deixam o site mais rápido." }
+                  - name: ajuste
+                    label: Ajuste da foto
+                    widget: object
+                    collapsed: true
+                    hint: "Veja o resultado na prévia ao lado enquanto ajusta."
+                    fields:
+                      - name: modo
+                        label: Como a foto ocupa o quadro
+                        widget: select
+                        default: preencher
+                        options:
+                          - { label: "Mostrar a foto inteira (pode sobrar espaço nas bordas)", value: inteira }
+                          - { label: "Preencher o quadro todo (corta um pouco as bordas)", value: preencher }
+                      - { name: zoom, label: "Zoom (100 = normal, 150 = aproxima 1,5x)", widget: number, value_type: int, min: 50, max: 300, step: 5, default: 100 }
+                      - { name: x, label: "Posição horizontal (0 = esquerda, 50 = centro, 100 = direita)", widget: number, value_type: int, min: 0, max: 100, step: 5, default: 50 }
+                      - { name: y, label: "Posição vertical (0 = topo, 50 = centro, 100 = base)", widget: number, value_type: int, min: 0, max: 100, step: 5, default: 50 }
+              - name: processo
+                label: "Foto do processo (seção “O valor do artesanal”)"
+                widget: object
+                collapsed: true
+                fields:
+                  - { name: imagem, label: Foto, widget: image, required: false, hint: "Fotos leves (até 1 MB) deixam o site mais rápido." }
+                  - name: ajuste
+                    label: Ajuste da foto
+                    widget: object
+                    collapsed: true
+                    hint: "Veja o resultado na prévia ao lado enquanto ajusta."
+                    fields:
+                      - name: modo
+                        label: Como a foto ocupa o quadro
+                        widget: select
+                        default: preencher
+                        options:
+                          - { label: "Mostrar a foto inteira (pode sobrar espaço nas bordas)", value: inteira }
+                          - { label: "Preencher o quadro todo (corta um pouco as bordas)", value: preencher }
+                      - { name: zoom, label: "Zoom (100 = normal, 150 = aproxima 1,5x)", widget: number, value_type: int, min: 50, max: 300, step: 5, default: 100 }
+                      - { name: x, label: "Posição horizontal (0 = esquerda, 50 = centro, 100 = direita)", widget: number, value_type: int, min: 0, max: 100, step: 5, default: 50 }
+                      - { name: y, label: "Posição vertical (0 = topo, 50 = centro, 100 = base)", widget: number, value_type: int, min: 0, max: 100, step: 5, default: 50 }
+              - name: atelie
+                label: "Foto do ateliê (seção “Sobre o ateliê”)"
+                widget: object
+                collapsed: true
+                fields:
+                  - { name: imagem, label: Foto, widget: image, required: false, hint: "Fotos leves (até 1 MB) deixam o site mais rápido." }
+                  - name: ajuste
+                    label: Ajuste da foto
+                    widget: object
+                    collapsed: true
+                    hint: "Veja o resultado na prévia ao lado enquanto ajusta."
+                    fields:
+                      - name: modo
+                        label: Como a foto ocupa o quadro
+                        widget: select
+                        default: preencher
+                        options:
+                          - { label: "Mostrar a foto inteira (pode sobrar espaço nas bordas)", value: inteira }
+                          - { label: "Preencher o quadro todo (corta um pouco as bordas)", value: preencher }
+                      - { name: zoom, label: "Zoom (100 = normal, 150 = aproxima 1,5x)", widget: number, value_type: int, min: 50, max: 300, step: 5, default: 100 }
+                      - { name: x, label: "Posição horizontal (0 = esquerda, 50 = centro, 100 = direita)", widget: number, value_type: int, min: 0, max: 100, step: 5, default: 50 }
+                      - { name: y, label: "Posição vertical (0 = topo, 50 = centro, 100 = base)", widget: number, value_type: int, min: 0, max: 100, step: 5, default: 50 }
+          - name: falas
+            label: Falas da Graça em cada seção
+            widget: object
+            hint: "Cada vez que a pessoa volta à seção, a Graça diz a próxima fala da lista."
+            fields:
+              - { name: inicio, label: Início, widget: list, field: { name: fala, label: Fala, widget: string } }
+              - { name: artesanal, label: O valor do artesanal, widget: list, field: { name: fala, label: Fala, widget: string } }
+              - { name: sobre, label: Sobre o ateliê, widget: list, field: { name: fala, label: Fala, widget: string } }
+              - { name: encomenda, label: Sob encomenda, widget: list, field: { name: fala, label: Fala, widget: string } }
+              - { name: contato, label: Contato, widget: list, field: { name: fala, label: Fala, widget: string } }
+          - name: categorias
+            label: Categorias (botões de filtro da vitrine)
+            widget: list
+            field: { name: categoria, label: Categoria, widget: string }
+            hint: "Se criar uma categoria nova, peça para incluí-la também na lista de opções do produto."
+          - { name: whatsapp, label: "WhatsApp (só números, com 55 e DDD)", widget: string }
+          - { name: instagram, label: "Link do Instagram (vazio = esconde o botão)", widget: string, required: false }

@@ -1,6 +1,8 @@
 Ateliê Toque de Graça - código-fonte
 Abra index.html no navegador (precisa de internet para carregar as fontes do Google Fonts).
-Edite WhatsApp, Instagram, categorias e produtos no início de script.js.
+Produtos, fotos das seções, falas da Graça, categorias, WhatsApp e Instagram: edite pelo painel em
+https://atelie-hazel.vercel.app/admin (os dados ficam em dados/produtos.json e dados/site.json).
+Ao abrir o index.html direto do computador, o site usa os dados de reserva do início de script.js.
 Imagens: images/inicio/principal.jpg, images/atelie/processo.jpg, images/atelie/atelie.jpg, images/produtos/ e images/logo/.
 
 Graça (a apresentadora animada):
@@ -16,3 +18,19 @@ Graça (a apresentadora animada):
   Distância mínima: MARGEM_TEXTO em script.js.
 - Tamanho da Graça: --gw no style.css. Tempo entre produtos: AUTO_MS em script.js.
 - Imagem: images/graca/graca.webp (graca.png é uma cópia de reserva).
+
+PAINEL DE ADMINISTRAÇÃO (/admin) — configuração (fazer uma vez só)
+Arquivos: admin/index.html, admin/config.yml (campos do painel), api/auth.js e api/callback.js (login).
+1. GitHub > Settings > Developer settings > OAuth Apps > New OAuth App
+   - Homepage URL: https://atelie-hazel.vercel.app
+   - Authorization callback URL: https://atelie-hazel.vercel.app/api/callback
+   Depois clique em "Generate a new client secret" e copie o Client ID e o Client secret.
+2. Vercel > projeto > Settings > Environment Variables:
+   OAUTH_GITHUB_CLIENT_ID = (Client ID)    OAUTH_GITHUB_CLIENT_SECRET = (Client secret)
+   Depois faça um novo deploy (Deployments > ... > Redeploy) para valer.
+3. Para a cliente entrar: ela cria uma conta grátis no GitHub e você adiciona ela em
+   github.com/GabrielHenriqueLopes/atelie > Settings > Collaborators > Add people.
+4. Se o endereço do site mudar, troque base_url, site_url e display_url em admin/config.yml
+   e as URLs do OAuth App no GitHub.
+Categorias novas: além de adicionar em "Configurações do site", inclua o nome na lista "options"
+do campo categoria em admin/config.yml.
