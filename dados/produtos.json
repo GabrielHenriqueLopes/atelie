@@ -1,6 +1,22 @@
 {
   "produtos": [
     {
+      "descricao": "graça",
+      "personalizavel": true,
+      "preco": "greaça",
+      "fala": "GABRIELLLLLL",
+      "imagem": "/images/produtos/captura-de-tela-2026-08-05-184736.png",
+      "categoria": "Diários e cadernetas",
+      "ajuste": {
+        "modo": "inteira",
+        "zoom": 100,
+        "x": 50,
+        "y": 50
+      },
+      "exemplo": false,
+      "nome": "grtaça"
+    },
+    {
       "ajuste": {
         "modo": "inteira",
         "zoom": 100,
