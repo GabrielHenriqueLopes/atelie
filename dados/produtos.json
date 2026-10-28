@@ -1,6 +1,34 @@
 {
   "produtos": [
     {
+      "ajuste": {
+        "modo": "inteira",
+        "zoom": 100,
+        "x": 50,
+        "y": 50
+      },
+      "personalizavel": true,
+      "exemplo": false,
+      "nome": "teste",
+      "categoria": "Papelaria personalizada",
+      "descricao": "aa"
+    },
+    {
+      "ajuste": {
+        "modo": "inteira",
+        "zoom": 100,
+        "x": 50,
+        "y": 50
+      },
+      "personalizavel": true,
+      "exemplo": false,
+      "nome": "TESTE",
+      "descricao": "AA",
+      "categoria": "Cartonagem artesanal",
+      "imagem": "/images/produtos/blocorosa.png",
+      "fala": "AAAA"
+    },
+    {
       "descricao": "Caixa em cartonagem feita sob medida.",
       "personalizavel": true,
       "preco": "",
