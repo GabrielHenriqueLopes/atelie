@@ -1,7 +1,7 @@
 {
   "produtos": [
     {
-      "descricao": "*Caixa cartonada (papelão holler 1,9mm)\n*Bloco de anotações (tamanho A6). \n*Arte toda Laminada (Fosco ou holográfico)\n*Com pingente de tassel. \n",
+      "descricao": "*Caixa cartonada (papelão holler 1,9mm)\n*Bloco de anotações A6 com encadernação wire-o. \n*Arte Laminada (brilho, fosco ou holográfico)\n*Com pingente de tassel. \n",
       "personalizavel": true,
       "preco": "R$ 40,00 (Tam. A6)",
       "fotos": [
@@ -46,7 +46,7 @@
       "nome": "Kit Caixa cartonada e Bloco de anotações"
     },
     {
-      "descricao": "Bloco de Anotações personalizado a mão.",
+      "descricao": "*Bloco de anotações A6 com encadernação wire-o. \n*Arte Laminada (brilho, fosco ou holográfico)",
       "personalizavel": true,
       "preco": "",
       "fala": "Olha esse bloquinho rosa! Cada detalhe é personalizado à mão 💕",
@@ -59,7 +59,7 @@
         "y": 50
       },
       "exemplo": true,
-      "nome": "Bloco de Anotações"
+      "nome": "Bloco de Anotações A6"
     },
     {
       "descricao": "Planner para organizar a rotina.",
