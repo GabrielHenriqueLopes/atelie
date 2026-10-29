@@ -62,12 +62,32 @@
       "nome": "Bloco de Anotações A6"
     },
     {
-      "descricao": "Planner para organizar a rotina.",
+      "descricao": "*Caixa cartonada 10x10cm (Papelão holler 1,9mm)\n*Arte Laminada (brilho, fosco ou holográfico)\n*Com fechamento em imã ou pino.",
       "personalizavel": false,
-      "preco": "",
+      "preco": "R$ 20,00",
+      "fotos": [
+        {
+          "ajuste": {
+            "modo": "inteira",
+            "zoom": 100,
+            "x": 50,
+            "y": 50
+          },
+          "imagem": "/images/produtos/20260408_234204.jpg"
+        },
+        {
+          "ajuste": {
+            "modo": "inteira",
+            "zoom": 100,
+            "x": 50,
+            "y": 50
+          },
+          "imagem": "/images/produtos/20260705_230909.jpg"
+        }
+      ],
       "fala": "Um planner pra deixar a rotina mais leve e organizada ✨",
-      "imagem": "",
-      "categoria": "Papelaria personalizada",
+      "imagem": "/images/produtos/20250928_215604.jpg",
+      "categoria": "Cartonagem artesanal",
       "ajuste": {
         "modo": "inteira",
         "zoom": 100,
@@ -75,7 +95,7 @@
         "y": 50
       },
       "exemplo": true,
-      "nome": "Planner personalizado"
+      "nome": "Caixa cartonada quadrada"
     },
     {
       "descricao": "Mimo para datas especiais.",
