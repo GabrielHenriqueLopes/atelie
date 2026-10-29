@@ -13,6 +13,33 @@
             "y": 50
           },
           "imagem": "/images/produtos/blocorosa.png"
+        },
+        {
+          "ajuste": {
+            "modo": "inteira",
+            "zoom": 100,
+            "x": 50,
+            "y": 50
+          },
+          "imagem": "/images/produtos/20251210_075653.jpg"
+        },
+        {
+          "ajuste": {
+            "modo": "inteira",
+            "zoom": 100,
+            "x": 50,
+            "y": 50
+          },
+          "imagem": "/images/produtos/20251211_145936.jpg"
+        },
+        {
+          "ajuste": {
+            "modo": "inteira",
+            "zoom": 100,
+            "x": 50,
+            "y": 50
+          },
+          "imagem": "/images/produtos/20251211_150054.jpg"
         }
       ],
       "fala": "Esse kit eu posso produzir do tamanho que você precisar! 📦",
