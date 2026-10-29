@@ -78,6 +78,60 @@ const AUTO_MS = 7000;   // tempo (ms) para trocar de produto automaticamente (d�
 let slideIdx = 0, slideCount = 0, autoTimer = null, listaAtual = [], categoriaAtual = "Todos", trocouCategoria = false;
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+/* ===== Subcarrossel: várias fotos do mesmo produto =====
+   As fotos extras são cadastradas no painel em "Mais fotos deste produto". */
+function montarGaleria(el){
+  let fotos = [];
+  try{ fotos = JSON.parse(el.dataset.fotos || "[]"); }catch(e){}
+  const nome = el.dataset.alt || "";
+  el.innerHTML = FLOWER + "<span>" + esc(el.dataset.label || "Foto") + "</span>";
+  const imgs = fotos.map((f, i) => {
+    const img = new Image();
+    img.alt = nome + " – foto " + (i + 1) + " de " + fotos.length;
+    img.decoding = "async";
+    if(i > 0) img.loading = "lazy";
+    img.onerror = () => { img.style.visibility = "hidden"; };
+    aplicarAjuste(img, f.ajuste);
+    img.src = f.imagem;
+    el.appendChild(img);
+    return img;
+  });
+  const cont = document.createElement("span");
+  cont.className = "g-cont";
+  const barra = document.createElement("div");
+  barra.className = "g-barra";
+  barra.innerHTML = '<button type="button" class="g-seta" aria-label="Foto anterior">&#8249;</button>' +
+                    '<span class="g-pontos"></span>' +
+                    '<button type="button" class="g-seta" aria-label="Próxima foto">&#8250;</button>';
+  const pontos = barra.querySelector(".g-pontos");
+  let atual = 0;
+  const ir = i => {
+    atual = (i + fotos.length) % fotos.length;
+    imgs.forEach((im, k) => im.classList.toggle("ativa", k === atual));
+    [...pontos.children].forEach((b, k) => b.setAttribute("aria-current", k === atual));
+    cont.textContent = (atual + 1) + " / " + fotos.length;
+  };
+  fotos.forEach((f, i) => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "g-ponto"; b.setAttribute("aria-label", "Ver foto " + (i + 1));
+    b.onclick = () => ir(i);
+    pontos.appendChild(b);
+  });
+  const [ant, prox] = barra.querySelectorAll(".g-seta");
+  ant.onclick = () => ir(atual - 1);
+  prox.onclick = () => ir(atual + 1);
+  // deslizar o dedo sobre a foto troca a foto (e não o produto)
+  let gx = null;
+  el.addEventListener("touchstart", e => { gx = e.touches[0].clientX; e.stopPropagation(); stopAuto(); }, {passive: true});
+  el.addEventListener("touchend", e => {
+    e.stopPropagation();
+    if(gx !== null){ const dx = e.changedTouches[0].clientX - gx; if(Math.abs(dx) > 40) ir(atual + (dx < 0 ? 1 : -1)); }
+    gx = null; startAuto();
+  });
+  el.append(cont, barra);
+  ir(0);
+}
+
 function renderGrid(cat){
   const track = document.getElementById("track"), dots = document.getElementById("dots");
   const lista = PRODUTOS.filter(p => !cat || cat === "Todos" || p.categoria === cat);
@@ -89,8 +143,11 @@ function renderGrid(cat){
     s.setAttribute("aria-roledescription", "slide");
     s.setAttribute("aria-label", (i+1) + " de " + lista.length);
     const msg = "Olá! Conheci o Ateliê Toque de Graça pelo site e gostaria de saber mais sobre o produto " + p.nome + ". Poderia me passar mais informações?";
+    const fotos = p.fotos || (p.imagem ? [{imagem: p.imagem, ajuste: p.ajuste}] : []);
+    const capa = fotos[0] || {imagem: "", ajuste: null};
     s.innerHTML =
-      '<div class="ph" data-img="' + esc(p.imagem) + '" data-ajuste="' + esc(JSON.stringify(p.ajuste || {})) + '" data-alt="' + esc(p.nome) + '" data-label="Foto em breve"></div>' +
+      '<div class="ph' + (fotos.length > 1 ? ' galeria' : '') + '" data-img="' + esc(capa.imagem) + '" data-ajuste="' + esc(JSON.stringify(capa.ajuste || {})) +
+        '" data-fotos="' + esc(JSON.stringify(fotos)) + '" data-alt="' + esc(p.nome) + '" data-label="Foto em breve"></div>' +
       '<div class="info">' +
         (p.exemplo ? '<span class="demo">Exemplo</span>' : '') +
         '<span class="cat">' + esc(p.categoria) + '</span>' +
@@ -106,7 +163,7 @@ function renderGrid(cat){
     d.onclick = () => { goTo(i); startAuto(); };
     dots.appendChild(d);
   });
-  track.querySelectorAll(".ph").forEach(fillPlaceholder);
+  track.querySelectorAll(".ph").forEach(el => el.classList.contains("galeria") ? montarGaleria(el) : fillPlaceholder(el));
   slideCount = lista.length;
   const multi = slideCount > 1;
   document.getElementById("prev").hidden = !multi;
@@ -166,6 +223,9 @@ async function carregarDados(){
       PRODUTOS = prod.produtos.filter(p => p && p.nome).map((p, i) => ({
         id: "p" + i, nome: p.nome, categoria: p.categoria || "", descricao: p.descricao || "",
         preco: p.preco || "", imagem: p.imagem || "", fala: p.fala || "", ajuste: p.ajuste || null,
+        // foto principal + "Mais fotos deste produto" (subcarrossel)
+        fotos: [{imagem: p.imagem, ajuste: p.ajuste}].concat(Array.isArray(p.fotos) ? p.fotos : [])
+                 .filter(f => f && f.imagem).map(f => ({imagem: f.imagem, ajuste: f.ajuste || null})),
         personalizacao: p.personalizavel ? "Personalizável" : "", botao: "Consultar", exemplo: !!p.exemplo
       }));
     }

@@ -13,7 +13,7 @@ ADICIONAR OU MUDAR UM PRODUTO
 3. Preencha:
    - Nome, Categoria e Descrição.
    - Preço: escreva como quer que apareça (ex.: R$ 45,00). Vazio = "Consulte o valor".
-   - Foto: clique em "Escolher uma imagem" > "Enviar" e escolha a foto do computador ou celular.
+   - Foto principal: clique em "Escolher uma imagem" > "Enviar" e escolha a foto do computador ou celular.
      Dica: fotos quadradas e leves (até 1 MB) deixam o site mais rápido.
    - Ajuste da foto (clique para abrir): escolha como a foto aparece no quadro e veja o
      resultado na prévia à direita da tela:
@@ -21,6 +21,10 @@ ADICIONAR OU MUDAR UM PRODUTO
        * Zoom: 100 é o normal; 150 aproxima 1,5 vez;
        * Posição horizontal e vertical: escolhe qual parte da foto fica no centro
          (ex.: vertical 0 mostra mais o topo da foto, 100 mostra mais a base).
+   - Mais fotos deste produto: clique em "Adicionar foto" para cada foto extra. No site elas
+     aparecem num carrossel dentro da foto do produto (setinhas e bolinhas embaixo da foto),
+     depois da foto principal. Cada foto extra também tem o seu "Ajuste da foto".
+     Arraste pelas alças para mudar a ordem.
    - "Pode ser personalizado?": ligado mostra a etiqueta "Personalizável".
    - Fala da Graça: o que a personagem diz quando o produto aparece (pode deixar vazio).
    - "É só um exemplo?": deixe DESLIGADO nos produtos de verdade.
@@ -35,5 +39,6 @@ TROCAR AS FOTOS DAS SEÇÕES, AS FALAS DA GRAÇA OU O WHATSAPP
 2. Troque o que quiser e clique em "Publicar" > "Publicar agora".
 
 DICAS
+- Na descrição, pode pular linha (Enter): o site mostra as quebras de linha.
 - Se o site ainda mostrar a versão antiga, espere 2 minutos e atualize a página (F5).
 - Nada é perdido: cada publicação fica guardada no histórico e pode ser desfeita.

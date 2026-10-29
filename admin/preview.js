@@ -39,8 +39,15 @@
       var itens = lista && lista.toJS ? lista.toJS() : [];
       return pagina("Vitrine", h("div", { style: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(170px, 1fr))", gap: "18px" } },
         itens.map(function (p, i) {
-          return quadro(caminho(props, p.imagem), p.ajuste, "inteira", { aspectRatio: "1 / 1", borderRadius: "14px" },
-            (p.nome || "(sem nome)") + (p.categoria ? " · " + p.categoria : ""), i);
+          var extras = (p.fotos || []).filter(function (f) { return f && f.imagem; });
+          var legenda = (p.nome || "(sem nome)") + (p.categoria ? " · " + p.categoria : "") +
+            (extras.length ? " · " + (extras.length + (p.imagem ? 1 : 0)) + " fotos" : "");
+          return h("div", { key: i },
+            quadro(caminho(props, p.imagem), p.ajuste, "inteira", { aspectRatio: "1 / 1", borderRadius: "14px" }, legenda, "c"),
+            extras.length ? h("div", { style: { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "6px", marginTop: "8px" } },
+              extras.map(function (f, k) {
+                return quadro(caminho(props, f.imagem), f.ajuste, "inteira", { aspectRatio: "1 / 1", borderRadius: "8px" }, "+" + (k + 1), k);
+              })) : null);
         })));
     }
   });

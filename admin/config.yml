@@ -47,7 +47,7 @@ collections:
               - { name: descricao, label: Descrição, widget: text }
               - { name: preco, label: "Preço (ex.: R$ 45,00) — deixe vazio para mostrar “Consulte o valor”", widget: string, required: false }
               - name: imagem
-                label: Foto
+                label: Foto principal
                 widget: image
                 required: false
                 hint: "Prefira fotos quadradas e leves (até 1 MB). Fotos muito grandes deixam o site lento."
@@ -67,6 +67,31 @@ collections:
                   - { name: zoom, label: "Zoom (100 = normal, 150 = aproxima 1,5x)", widget: number, value_type: int, min: 50, max: 300, step: 5, default: 100 }
                   - { name: x, label: "Posição horizontal (0 = esquerda, 50 = centro, 100 = direita)", widget: number, value_type: int, min: 0, max: 100, step: 5, default: 50 }
                   - { name: y, label: "Posição vertical (0 = topo, 50 = centro, 100 = base)", widget: number, value_type: int, min: 0, max: 100, step: 5, default: 50 }
+              - name: fotos
+                label: Mais fotos deste produto (subcarrossel)
+                label_singular: foto
+                widget: list
+                required: false
+                collapsed: true
+                summary: "{{fields.imagem}}"
+                hint: "Fotos extras aparecem num carrossel dentro da foto do produto, depois da foto principal. Arraste para mudar a ordem."
+                fields:
+                  - { name: imagem, label: Foto, widget: image, hint: "Fotos leves (até 1 MB) deixam o site mais rápido." }
+                  - name: ajuste
+                    label: Ajuste da foto
+                    widget: object
+                    collapsed: true
+                    fields:
+                    - name: modo
+                      label: Como a foto ocupa o quadro
+                      widget: select
+                      default: inteira
+                      options:
+                        - { label: "Mostrar a foto inteira (pode sobrar espaço nas bordas)", value: inteira }
+                        - { label: "Preencher o quadro todo (corta um pouco as bordas)", value: preencher }
+                    - { name: zoom, label: "Zoom (100 = normal, 150 = aproxima 1,5x)", widget: number, value_type: int, min: 50, max: 300, step: 5, default: 100 }
+                    - { name: x, label: "Posição horizontal (0 = esquerda, 50 = centro, 100 = direita)", widget: number, value_type: int, min: 0, max: 100, step: 5, default: 50 }
+                    - { name: y, label: "Posição vertical (0 = topo, 50 = centro, 100 = base)", widget: number, value_type: int, min: 0, max: 100, step: 5, default: 50 }
               - { name: personalizavel, label: "Pode ser personalizado?", widget: boolean, default: true, required: false }
               - { name: fala, label: "Fala da Graça sobre este produto (opcional)", widget: string, required: false, hint: "Se ficar vazio, ela usa uma frase automática com o nome e a descrição." }
               - { name: exemplo, label: "É só um exemplo? (mostra o selo “Exemplo”)", widget: boolean, default: false, required: false }
