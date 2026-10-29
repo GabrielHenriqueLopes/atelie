@@ -2,10 +2,9 @@
   "whatsapp": "5511997130075",
   "instagram": "https://www.instagram.com/atelie_toquedegraca_cartonagem/",
   "categorias": [
-    "Cartonagem artesanal",
+    "Cartonagem",
     "Papelaria personalizada",
-    "Presentes e lembranças",
-    "Diários e cadernetas"
+    "Lembrancinhas personalizadas"
   ],
   "fotos": {
     "inicio": {
@@ -38,12 +37,12 @@
   },
   "falas": {
     "inicio": [
-      "Oi, eu sou a Graça! Seja bem-vinda ao meu ateliê ✨",
+      "Oi, eu sou a Graça! Seja bem-vinda(o) ao meu ateliê ✨",
       "Voltou pro começo? Que bom te ver por aqui! 💕"
     ],
     "artesanal": [
       "Aqui é onde a mágica acontece: corte, dobra e muito carinho ✂️",
-      "Cada pecinha passa pelas minhas mãos, viu? 🌷"
+      "Cada peça passa pelas minhas mãos, viu? 🌷"
     ],
     "sobre": [
       "Esse é o meu cantinho! Foi aqui que tudo começou 🏡",
