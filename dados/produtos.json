@@ -1,10 +1,10 @@
 {
   "produtos": [
     {
-      "descricao": "Caixa em cartonagem feita sob medida.",
+      "descricao": "Kit Caixa cartonada e Bloco de Notas (tamanho A6). \nAmbos personalizados e com pingente de tassel. \nUm presente que surpreende.",
       "personalizavel": true,
-      "preco": "",
-      "fala": "Essa caixa eu faço sob medida, do tamanho que você precisar! 📦",
+      "preco": "R$ 50,00 (Tam. A6)",
+      "fala": "Esse kit eu posso produzir do tamanho que você precisar! 📦",
       "imagem": "",
       "categoria": "Cartonagem artesanal",
       "ajuste": {
@@ -14,7 +14,7 @@
         "y": 50
       },
       "exemplo": true,
-      "nome": "Caixa personalizada"
+      "nome": "Caixa cartonada e bloco personalizado"
     },
     {
       "descricao": "Bloco de Anotações personalizado a mão.",
