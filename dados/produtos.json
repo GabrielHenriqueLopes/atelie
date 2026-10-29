@@ -1,7 +1,7 @@
 {
   "produtos": [
     {
-      "descricao": "Kit Caixa cartonada e Bloco de Notas (tamanho A6). \n*Com pingente de tassel. ",
+      "descricao": "*Caixa cartonada (papelão holler 1,9mm)\n*Bloco de anotações (tamanho A6). \n*Arte tdao Laminada (Fosco ou holográfico)\n*Com pingente de tassel. \n",
       "personalizavel": true,
       "preco": "R$ 40,00 (Tam. A6)",
       "fotos": [
@@ -42,8 +42,8 @@
         "x": 50,
         "y": 50
       },
-      "exemplo": true,
-      "nome": "Caixa cartonada e bloco personalizado"
+      "exemplo": false,
+      "nome": "Kit Caixa cartonada e Bloco de anotações"
     },
     {
       "descricao": "Bloco de Anotações personalizado a mão.",
