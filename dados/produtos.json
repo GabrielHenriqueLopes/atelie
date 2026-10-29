@@ -4,6 +4,17 @@
       "descricao": "Kit Caixa cartonada e Bloco de Notas (tamanho A6). \nAmbos personalizados e com pingente de tassel. \nUm presente que surpreende.",
       "personalizavel": true,
       "preco": "R$ 40,00 (Tam. A6)",
+      "fotos": [
+        {
+          "ajuste": {
+            "modo": "inteira",
+            "zoom": 100,
+            "x": 50,
+            "y": 50
+          },
+          "imagem": "/images/produtos/blocorosa.png"
+        }
+      ],
       "fala": "Esse kit eu posso produzir do tamanho que você precisar! 📦",
       "imagem": "/images/produtos/20251210_075615-1-.jpg",
       "categoria": "Cartonagem artesanal",
